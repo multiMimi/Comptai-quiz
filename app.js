@@ -1,5 +1,23 @@
 import { quizData } from './questions.js';
 
+// --- Firebase Setup ---
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAzqTV_YDishtozUR-CasOyPwmgaVRumCk",
+  authDomain: "comptiaplus-a294a.firebaseapp.com",
+  databaseURL: "https://comptiaplus-a294a-default-rtdb.firebaseio.com",
+  projectId: "comptiaplus-a294a",
+  storageBucket: "comptiaplus-a294a.firebasestorage.app",
+  messagingSenderId: "399737006184",
+  appId: "1:399737006184:web:1971ec3f86900d91caf3dd",
+  measurementId: "G-V3C9S6PC60"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 // --- State Variables ---
 let currentUser = '';
 let currentChapterId = '';
@@ -171,8 +189,24 @@ function showResults() {
 
     showScreen('result');
 
-    // Here we would call Firebase to save the score!
-    // saveScoreToFirebase(currentUser, currentChapterId, score, total);
+    // Save the score to Firebase Firestore
+    saveScoreToFirebase(currentUser, currentChapterId, score, total);
+}
+
+async function saveScoreToFirebase(studentName, chapterId, score, total) {
+    try {
+        await addDoc(collection(db, "quiz_results"), {
+            studentName: studentName,
+            chapter: quizData[chapterId].title,
+            score: score,
+            totalQuestions: total,
+            percentage: Math.round((score / total) * 100),
+            timestamp: serverTimestamp()
+        });
+        console.log("Score saved successfully to Firebase!");
+    } catch (e) {
+        console.error("Error saving score: ", e);
+    }
 }
 
 // --- Event Listeners ---
