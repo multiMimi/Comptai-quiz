@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CompTIA Network+ Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="logo">
+            <span class="logo-icon">🌐</span>
+            <h1>Net+ Mastery</h1>
+        </div>
+        <div class="user-profile" id="userProfile" style="display: none;">
+            <span id="userNameDisplay">Student</span>
+        </div>
+    </header>
+
+    <main class="app-main">
+        <!-- Screen 1: Welcome & Login -->
+        <section id="welcomeScreen" class="screen active">
+            <div class="card welcome-card">
+                <h2>Welcome to Net+ Mastery</h2>
+                <p>Master your CompTIA Network+ certification with interactive quizzes.</p>
+                <form id="loginForm">
+                    <div class="input-group">
+                        <label for="studentName">Enter your name to begin:</label>
+                        <input type="text" id="studentName" required placeholder="John Doe" autocomplete="off">
+                    </div>
+                    <button type="submit" class="btn primary-btn">Start Learning</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Screen 2: Chapter Selection -->
+        <section id="chapterScreen" class="screen">
+            <div class="section-header">
+                <h2>Select a Chapter</h2>
+                <p>Choose a topic to practice</p>
+            </div>
+            <div class="chapter-grid" id="chapterGrid">
+                <!-- Chapters will be injected here dynamically -->
+            </div>
+        </section>
+
+        <!-- Screen 3: Active Quiz -->
+        <section id="quizScreen" class="screen">
+            <div class="quiz-header">
+                <button id="backToChaptersBtn" class="btn text-btn">← Back to Chapters</button>
+                <div class="progress-container">
+                    <span id="questionCount">Question 1 of 10</span>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" id="progressBar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card question-card" id="questionCard">
+                <h3 id="questionText">Loading question...</h3>
+                <div class="options-grid" id="optionsContainer">
+                    <!-- Options injected here -->
+                </div>
+            </div>
+            
+            <div class="quiz-footer">
+                <button id="nextBtn" class="btn primary-btn" disabled>Next Question</button>
+            </div>
+        </section>
+
+        <!-- Screen 4: Results -->
+        <section id="resultScreen" class="screen">
+            <div class="card result-card">
+                <h2>Quiz Complete! 🎉</h2>
+                <div class="score-circle">
+                    <span id="scoreDisplay">0%</span>
+                </div>
+                <p id="scoreMessage">Great effort!</p>
+                <div class="action-buttons">
+                    <button id="retryBtn" class="btn secondary-btn">Retry Quiz</button>
+                    <button id="homeBtn" class="btn primary-btn">Choose Another Chapter</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Firebase SDK (Modular) will be loaded in app.js if needed, or we can use CDN here. -->
+    <script type="module" src="questions.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+</html>
